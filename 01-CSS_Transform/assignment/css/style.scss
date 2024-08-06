@@ -1,0 +1,129 @@
+// partials store colors//
+@import 'colors';
+
+// mxin for turning off list default behavior
+@mixin reset-list-defaults {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: system-ui;
+}
+
+body {
+    min-height: 200vh;
+    margin: 0;
+    font-size: 1.25rem;
+    background-color: $maincolor;
+    color: $textcolor;
+    display: grid;
+    //Set width of first column and specify second takes up whole width//
+    grid-template-columns: 20rem 1fr;
+    gap: 4rem;
+}
+
+nav {
+    // Allow nav to remain in place with scrolling//
+    position: sticky;
+    top: 0;
+    // Set height to 100% of viewport height//
+    max-height: 100svh;
+    height: 100%;
+    background-color: $navcolor;
+}
+
+.nav-list {
+    @include reset-list-defaults;
+    font-size: 2rem;
+    display: grid;
+    gap: 2rem;
+    padding-block: 2rem;
+    a {
+        color: $textcolor;
+        text-decoration: none;
+    }
+    li {
+        padding: 1rem 2rem;
+        margin-left: 2rem;
+        //Limit rounding to top and bottom left. Inspired from https://www.youtube.com/watch?v=SkML640BcoA// 
+        border-radius: 100vw 0 0 100vw;
+    }
+    li.active {
+        background: $maincolor;
+        //retain position//
+        position: relative;
+    }
+    //from https://codepen.io/kleberbaum-the-sasster/pen/qBqzVBJ //
+    .drops {
+        //Creates rounding of drop effect.//
+        -webkit-filter: url('#liquid');
+        filter: url('#liquid');
+        //Position drops container correctly//
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        opacity: 0;
+        // Create drop start animation //
+        animation: fade-in 0.8s linear .8s forwards;
+      }
+      
+      .drop1 , .drop2 {
+        // Position and size drops //
+        width: 20px;
+        height: 24px;
+        position: absolute;
+        // Had to move over to not overlap text//
+        left: 40px;
+        right: 0;
+        bottom: 5px;
+        margin: auto;
+        background-color: $maincolor;
+      }
+      
+      .drop1 {
+        width: 100px;
+        height: 32px;
+        bottom: 2px;
+      }
+      // Controls relative speed of drop and specifies it repeats thrice//
+      .drop2 {
+        animation: drop 2.2s cubic-bezier(1,.19,.66,.6) 1s 3;
+      }
+}
+
+// Specify starts transulucent and ends opaque//
+@keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+// Specify starts opaque anf gradually gets more transulenct through 900px journey//
+@keyframes drop {
+    0% {
+      bottom: 0px;
+      opacity: 1;
+    }
+    
+    80% {
+      opacity: 0.85;
+    }
+    
+    100% {
+      opacity: 0;
+      bottom: -900px;
+    }
+  }
+
+  
+  
